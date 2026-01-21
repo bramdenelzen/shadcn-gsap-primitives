@@ -8,10 +8,7 @@ interface ExampleCodeSectionProps {
 }
 
 export function ExampleCodeSection({ filePath }: ExampleCodeSectionProps) {
-  const code = fs.readFileSync(
-    path.join(process.cwd(), filePath),
-    "utf8",
-  );
+  const code = fs.readFileSync(path.join(process.cwd(), filePath), "utf8");
 
   return (
     <section>

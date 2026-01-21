@@ -6,6 +6,13 @@ import { FadeIn } from "@/registry/new-york/gsap-primitives/text-animations/fade
 import { ComponentPreview } from "@/components/component-preview";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Text Reveal Interactive Demo
 export function TextRevealDemo() {
@@ -15,13 +22,14 @@ export function TextRevealDemo() {
   const [stagger, setStagger] = React.useState<any>("medium");
   const [splitBy, setSplitBy] = React.useState<any>("char");
   const [delay, setDelay] = React.useState(0);
+  const [customDuration, setCustomDuration] = React.useState<number | undefined>(undefined);
   const [key, setKey] = React.useState(0);
 
   const resetAnimation = () => setKey((prev) => prev + 1);
 
   React.useEffect(() => {
     resetAnimation();
-  }, [text, variant, duration, stagger, splitBy, delay]);
+  }, [text, variant, duration, stagger, splitBy, delay, customDuration]);
 
   return (
     <div className="space-y-6">
@@ -33,6 +41,7 @@ export function TextRevealDemo() {
           stagger={stagger}
           splitBy={splitBy}
           delay={delay}
+          customDuration={customDuration}
           triggerOnView={false}
           className="text-2xl font-semibold"
         >
@@ -40,8 +49,8 @@ export function TextRevealDemo() {
         </TextReveal>
       </ComponentPreview>
 
-      <div className="rounded-lg border bg-muted/50 p-6 space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+      <div className="rounded-xs border border-border bg-background p-6 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="text">Text</Label>
             <Input
@@ -49,68 +58,81 @@ export function TextRevealDemo() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Enter text..."
+              className="w-full"
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="variant">Variant</Label>
-            <select
-              id="variant"
+            <Select
               value={variant}
-              onChange={(e) => setVariant(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setVariant(value)}
             >
-              <option value="fade">Fade</option>
-              <option value="slideUp">Slide Up</option>
-              <option value="slideDown">Slide Down</option>
-              <option value="slideLeft">Slide Left</option>
-              <option value="slideRight">Slide Right</option>
-              <option value="scale">Scale</option>
-              <option value="blur">Blur</option>
-            </select>
+              <SelectTrigger id="variant" className="w-full">
+                <SelectValue placeholder="Select variant" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="fade">Fade</SelectItem>
+                <SelectItem value="slideUp">Slide Up</SelectItem>
+                <SelectItem value="slideDown">Slide Down</SelectItem>
+                <SelectItem value="slideLeft">Slide Left</SelectItem>
+                <SelectItem value="slideRight">Slide Right</SelectItem>
+                <SelectItem value="scale">Scale</SelectItem>
+                <SelectItem value="blur">Blur</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="duration">Duration</Label>
-            <select
-              id="duration"
+            <Select
               value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setDuration(value)}
             >
-              <option value="fast">Fast</option>
-              <option value="normal">Normal</option>
-              <option value="slow">Slow</option>
-            </select>
+              <SelectTrigger id="duration" className="w-full">
+                <SelectValue placeholder="Select duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="fast">Fast</SelectItem>
+                <SelectItem value="normal">Normal</SelectItem>
+                <SelectItem value="slow">Slow</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="stagger">Stagger</Label>
-            <select
-              id="stagger"
+            <Select
               value={stagger}
-              onChange={(e) => setStagger(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setStagger(value)}
             >
-              <option value="none">None</option>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
+              <SelectTrigger id="stagger" className="w-full">
+                <SelectValue placeholder="Select stagger" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">None</SelectItem>
+                <SelectItem value="small">Small</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="large">Large</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="splitBy">Split By</Label>
-            <select
-              id="splitBy"
+            <Select
               value={splitBy}
-              onChange={(e) => setSplitBy(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setSplitBy(value)}
             >
-              <option value="char">Character</option>
-              <option value="word">Word</option>
-              <option value="line">Line</option>
-            </select>
+              <SelectTrigger id="splitBy" className="w-full">
+                <SelectValue placeholder="Select split" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="char">Character</SelectItem>
+                <SelectItem value="word">Word</SelectItem>
+                <SelectItem value="line">Line</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -122,6 +144,24 @@ export function TextRevealDemo() {
               min="0"
               value={delay}
               onChange={(e) => setDelay(parseFloat(e.target.value) || 0)}
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="custom-duration">Custom Duration (seconds)</Label>
+            <Input
+              id="custom-duration"
+              type="number"
+              step="0.1"
+              min="0"
+              value={customDuration || ""}
+              placeholder="Overrides preset"
+              onChange={(e) => {
+                const val = parseFloat(e.target.value);
+                setCustomDuration(isNaN(val) ? undefined : val);
+              }}
+              className="w-full"
             />
           </div>
         </div>
@@ -135,13 +175,14 @@ export function FadeInDemo() {
   const [variant, setVariant] = React.useState<any>("fade");
   const [duration, setDuration] = React.useState<any>("normal");
   const [delay, setDelay] = React.useState(0);
+  const [customDuration, setCustomDuration] = React.useState<number | undefined>(undefined);
   const [key, setKey] = React.useState(0);
 
   const resetAnimation = () => setKey((prev) => prev + 1);
 
   React.useEffect(() => {
     resetAnimation();
-  }, [variant, duration, delay]);
+  }, [variant, duration, delay, customDuration]);
 
   return (
     <div className="space-y-6">
@@ -151,9 +192,10 @@ export function FadeInDemo() {
           variant={variant}
           duration={duration}
           delay={delay}
+          customDuration={customDuration}
           triggerOnView={false}
         >
-          <div className="p-8 bg-muted rounded-lg">
+          <div className="p-8 bg-input rounded-xs">
             <h3 className="text-xl font-semibold mb-2">Card Title</h3>
             <p className="text-muted-foreground">
               This entire card fades in with the selected animation.
@@ -162,38 +204,44 @@ export function FadeInDemo() {
         </FadeIn>
       </ComponentPreview>
 
-      <div className="rounded-lg border bg-muted/50 p-6 space-y-4">
-        <div className="grid grid-cols-3 gap-4">
+      <div className="rounded-xs border bg-background p-6 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="fade-variant">Variant</Label>
-            <select
-              id="fade-variant"
+            <Select
               value={variant}
-              onChange={(e) => setVariant(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setVariant(value)}
             >
-              <option value="fade">Fade</option>
-              <option value="slideUp">Slide Up</option>
-              <option value="slideDown">Slide Down</option>
-              <option value="slideLeft">Slide Left</option>
-              <option value="slideRight">Slide Right</option>
-              <option value="scale">Scale</option>
-              <option value="blur">Blur</option>
-            </select>
+              <SelectTrigger id="fade-variant" className="w-full">
+                <SelectValue placeholder="Select variant" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="fade">Fade</SelectItem>
+                <SelectItem value="slideUp">Slide Up</SelectItem>
+                <SelectItem value="slideDown">Slide Down</SelectItem>
+                <SelectItem value="slideLeft">Slide Left</SelectItem>
+                <SelectItem value="slideRight">Slide Right</SelectItem>
+                <SelectItem value="scale">Scale</SelectItem>
+                <SelectItem value="blur">Blur</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="fade-duration">Duration</Label>
-            <select
-              id="fade-duration"
+            <Select
               value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+              onValueChange={(value) => setDuration(value)}
             >
-              <option value="fast">Fast</option>
-              <option value="normal">Normal</option>
-              <option value="slow">Slow</option>
-            </select>
+              <SelectTrigger id="fade-duration" className="w-full">
+                <SelectValue placeholder="Select duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="fast">Fast</SelectItem>
+                <SelectItem value="normal">Normal</SelectItem>
+                <SelectItem value="slow">Slow</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -205,6 +253,24 @@ export function FadeInDemo() {
               min="0"
               value={delay}
               onChange={(e) => setDelay(parseFloat(e.target.value) || 0)}
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="fade-custom-duration">Custom Duration (seconds)</Label>
+            <Input
+              id="fade-custom-duration"
+              type="number"
+              step="0.1"
+              min="0"
+              value={customDuration || ""}
+              placeholder="Overrides preset"
+              onChange={(e) => {
+                const val = parseFloat(e.target.value);
+                setCustomDuration(isNaN(val) ? undefined : val);
+              }}
+              className="w-full"
             />
           </div>
         </div>

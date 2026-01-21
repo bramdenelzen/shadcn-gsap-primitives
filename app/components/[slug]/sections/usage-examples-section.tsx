@@ -1,20 +1,19 @@
 import { Typography } from "@/components/ui/typography";
 import { CodeBlock } from "@/components/code-block";
 import { ExamplePreview } from "@/components/example-preview";
+import * as React from "react";
+import reactElementToJSXString from "react-element-to-jsx-string";
+import { FadeIn } from "@/registry/new-york/gsap-primitives/text-animations/fade-in";
+import { TextReveal } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
+import { componentRegistry } from "@/component-registration";
+import { Example } from "@/component-registration/types";
 
 interface UsageExamplesSectionProps {
-  examples: {
-    title: string;
-    description?: string;
-    code: string;
-    preview?: React.ReactNode;
-  }[];
-  componentType?: string;
+  examples: Example[]
 }
 
-export async function UsageExamplesSection({
+export function UsageExamplesSection({
   examples,
-  componentType = "unknown",
 }: UsageExamplesSectionProps) {
   return (
     <section className="space-y-8">
@@ -27,6 +26,8 @@ export async function UsageExamplesSection({
 
       <div className="space-y-12">
         {examples.map((example, index) => {
+          // Call preview function to get the actual JSX
+
           return (
             <div key={index} className="space-y-4">
               <div>
@@ -40,18 +41,14 @@ export async function UsageExamplesSection({
                 )}
               </div>
 
-              <ExamplePreview
-                code={example.code}
-                componentType={componentType}
-                index={index}
-              />
+              <ExamplePreview preview={example.preview} />
 
-              <div>
+              {/* <div>
                 <Typography variant="small" className="text-muted-foreground mb-2">
                   Code
                 </Typography>
-                <CodeBlock code={example.code} lang="tsx" />
-              </div>
+                <CodeBlock code={code} lang="tsx" />
+              </div> */}
             </div>
           );
         })}

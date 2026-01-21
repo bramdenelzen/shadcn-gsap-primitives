@@ -23,7 +23,7 @@ export function PropsSection({ props }: PropsSectionProps) {
       <Typography variant="h2" className="mb-6">
         Props
       </Typography>
-      <div className="rounded-md border">
+      <div className="rounded-xs border">
         <Table>
           <TableHeader>
             <TableRow>

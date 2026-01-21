@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { Typography } from "@/components/ui/typography";
 import { Separator } from "@/components/ui/separator";
-import { componentRegistry } from "@/lib/component-registry";
-import { InstallationSection } from "@/components/sections/installation-section";
-import { UsageExamplesSection } from "@/components/sections/usage-examples-section";
-import { PropsSection } from "@/components/sections/props-section";
-import { ExampleCodeSection } from "@/components/sections/example-code-section";
-import { TextRevealDemo, FadeInDemo } from "@/components/interactive-demos";
+import { componentRegistry } from "@/component-registration";
+import { InstallationSection } from "@/app/components/[slug]/sections/installation-section";
+import { UsageExamplesSection } from "@/app/components/[slug]/sections/usage-examples-section";
+import { PropsSection } from "@/app/components/[slug]/sections/props-section";
+import { ExampleCodeSection } from "@/app/components/[slug]/sections/example-code-section";
+import { InteractiveDemoSection } from "@/app/components/[slug]/sections/interactive-demo-section";
 
 export default async function Page({
   params,
@@ -23,14 +23,6 @@ export default async function Page({
     notFound();
   }
 
-  // Select the appropriate interactive demo
-  const InteractiveDemo =
-    slug === "text-reveal"
-      ? TextRevealDemo
-      : slug === "fade-in"
-        ? FadeInDemo
-        : null;
-
   return (
     <div className="container max-w-5xl py-12 space-y-12">
       {/* Header */}
@@ -43,54 +35,26 @@ export default async function Page({
         <Typography variant="h1">{config.name}</Typography>
         <Typography variant="lead">{config.description}</Typography>
       </header>
-
+      <InstallationSection componentName={slug} />
       <Separator />
-
-      {/* Interactive Demo */}
-      {InteractiveDemo && (
+      {config.interActiveDemo && (
         <>
-          <section className="space-y-4">
-            <div>
-              <Typography variant="h2">Interactive Demo</Typography>
-              <Typography variant="p" className="mt-2">
-                Try out different prop combinations and see the results in real-time.
-              </Typography>
-            </div>
-            <InteractiveDemo />
-          </section>
+          <InteractiveDemoSection component={config.interActiveDemo} />
           <Separator />
         </>
       )}
-
-      {/* Installation */}
-      <InstallationSection componentName={slug} />
-
-      <Separator />
-
-      {/* Usage Examples */}
-      <UsageExamplesSection examples={config.examples} componentType={slug} />
-
-      <Separator />
-
-      {/* Props */}
+      {/* <Separator />
+      <UsageExamplesSection examples={config.examples} /> */}
+      {/* <Separator />a */}
       {config.props && config.props.length > 0 && (
         <>
           <PropsSection props={config.props} />
           <Separator />
         </>
       )}
-
-      {/* Source Code */}
       <ExampleCodeSection filePath={config.filePath} />
     </div>
   );
-}
-
-// Generate static params for all components
-export function generateStaticParams() {
-  return Object.keys(componentRegistry).map((slug) => ({
-    slug,
-  }));
 }
 
 // Generate metadata for each component
