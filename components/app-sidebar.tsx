@@ -47,7 +47,7 @@ const data: { navMain: NavItem[] } = {
       items: [
         {
           title: "Text Reveal",
-          url: "/components/text-reveal",
+          url: "/text-reveal",
         },
       ],
     },
@@ -57,7 +57,7 @@ const data: { navMain: NavItem[] } = {
       items: [
         {
           title: "Fade In",
-          url: "/components/fade-in",
+          url: "/fade-in",
         },
       ],
     },

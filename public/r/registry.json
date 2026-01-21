@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "shadcn-gsap-primitives",
+  "homepage": "https://shadcn-gsap-primitives.vercel.app",
+  "items": [
+    {
+      "name": "fade-in",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "gsap",
+        "@gsap/react"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/gsap-primitives/text-animations/fade-in.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-reveal",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "gsap",
+        "@gsap/react"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/gsap-primitives/text-animations/text-reveal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

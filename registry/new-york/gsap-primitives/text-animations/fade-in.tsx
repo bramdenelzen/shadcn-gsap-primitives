@@ -119,7 +119,6 @@ function FadeInComponent(
   const animationDuration =
     customDuration ?? GSAPOriginalStatesMap.duration[duration || "normal"];
 
-  // Mark as ready after mount
   React.useLayoutEffect(() => {
     setIsReady(true);
   }, []);
@@ -190,6 +189,5 @@ function FadeInComponent(
 }
 
 const FadeIn = React.forwardRef<HTMLElement, FadeInProps>(FadeInComponent);
-FadeIn.displayName = "FadeIn";
 
 export { FadeIn, fadeInVariants };

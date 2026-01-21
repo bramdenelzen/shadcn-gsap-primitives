@@ -2,11 +2,10 @@ import { notFound } from "next/navigation";
 import { Typography } from "@/components/ui/typography";
 import { Separator } from "@/components/ui/separator";
 import { componentRegistry } from "@/component-registration";
-import { InstallationSection } from "@/app/components/[slug]/sections/installation-section";
-import { UsageExamplesSection } from "@/app/components/[slug]/sections/usage-examples-section";
-import { PropsSection } from "@/app/components/[slug]/sections/props-section";
-import { ExampleCodeSection } from "@/app/components/[slug]/sections/example-code-section";
-import { InteractiveDemoSection } from "@/app/components/[slug]/sections/interactive-demo-section";
+import { InstallationSection } from "@/app/[slug]/sections/installation-section";
+import { PropsSection } from "@/app/[slug]/sections/props-section";
+import { ExampleCodeSection } from "@/app/[slug]/sections/example-code-section";
+import { InteractiveDemoSection } from "@/app/[slug]/sections/interactive-demo-section";
 
 export default async function Page({
   params,

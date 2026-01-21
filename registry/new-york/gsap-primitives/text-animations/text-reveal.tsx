@@ -139,7 +139,7 @@ function TextRevealComponent(
     customDuration ?? GSAPOriginalStatesMap.duration[duration || "normal"];
   const staggerDelay = GSAPOriginalStatesMap.stagger[stagger || "medium"];
 
-  // Split text and wrap in spans before paint (runs synchronously)
+  // Split text and wrap in spans before paint 
   React.useLayoutEffect(() => {
     if (!containerRef.current || isProcessed) return;
 
@@ -156,56 +156,77 @@ function TextRevealComponent(
     }
 
     textContentRef.current = text;
-
-    let elements: string[] = [];
+    const fragment = document.createDocumentFragment();
 
     if (splitBy === "char") {
-      elements = text.split("");
-    } else if (splitBy === "word") {
-      elements = text.split(" ");
-    } else if (splitBy === "line") {
-      elements = text.split("\n");
+      const words = text.split(" ");
+      words.forEach((word, wordIndex) => {
+        const wordSpan = document.createElement("span");
+        wordSpan.style.display = "inline-block";
+        wordSpan.style.whiteSpace = "nowrap";
+
+        const chars = word.split("");
+        chars.forEach((char) => {
+          const charSpan = document.createElement("span");
+          charSpan.className = cn(
+            "inline-block",
+            "opacity-0",
+            "text-reveal-element",
+          );
+          charSpan.textContent = char;
+          charSpan.style.display = "inline-block";
+
+          gsap.set(charSpan, variantConfig.initial);
+          wordSpan.appendChild(charSpan);
+        });
+
+        fragment.appendChild(wordSpan);
+
+        if (wordIndex < words.length - 1) {
+          fragment.appendChild(document.createTextNode(" "));
+        }
+      });
+    } else {
+      let elements: string[] = [];
+
+      if (splitBy === "word") {
+        elements = text.split(" ");
+      } else if (splitBy === "line") {
+        elements = text.split("\n");
+      }
+
+      elements.forEach((element, index) => {
+        const span = document.createElement("span");
+        span.className = cn(
+          "inline-block",
+          "opacity-0",
+          "text-reveal-element",
+        );
+        span.textContent = element;
+        span.style.display = "inline-block";
+
+        gsap.set(span, variantConfig.initial);
+        fragment.appendChild(span);
+
+        if (splitBy === "word" && index < elements.length - 1) {
+          fragment.appendChild(document.createTextNode(" "));
+        }
+      });
     }
 
-    const wrappedElements = elements.flatMap((element, index) => {
-      const span = document.createElement("span");
-      span.className = cn("inline-block", "opacity-0");
-      span.textContent = element;
-      span.style.display = "inline-block";
-      if (splitBy === "char" && element === " ") {
-        span.style.width = "0.25em";
-      }
-
-      // Add space after each word except the last one
-      if (splitBy === "word" && index < elements.length - 1) {
-        const space = document.createTextNode(" ");
-        return [span, space];
-      }
-
-      return [span];
-    });
-
-    // Apply initial state to elements before adding to DOM
-    wrappedElements.forEach((span) => {
-      gsap.set(span, variantConfig.initial);
-    });
-
-    // Use DocumentFragment for atomic DOM update (no flicker)
-    const fragment = document.createDocumentFragment();
-    wrappedElements.forEach((el) => fragment.appendChild(el));
-
-    // Atomic replacement - clear and append in one reflow
+    // Append characters to container
     containerRef.current?.replaceChildren(fragment);
     setIsProcessed(true);
   }, [children, splitBy, variant, prefersReducedMotion]);
 
-  // Use useGSAP hook for animation only
   useGSAP(
     () => {
       if (!containerRef.current || !isProcessed || prefersReducedMotion) return;
 
-      const spans = containerRef.current.querySelectorAll("span");
-      if (spans.length === 0) return;
+      const elements = containerRef.current.querySelectorAll(
+        ".text-reveal-element",
+      );
+      if (elements.length === 0) return;
 
       // Animation properties
       const animationProps: gsap.TweenVars = {
@@ -221,7 +242,7 @@ function TextRevealComponent(
       };
 
       if (triggerOnView) {
-        gsap.fromTo(spans, variantConfig.initial, {
+        gsap.fromTo(elements, variantConfig.initial, {
           ...animationProps,
           scrollTrigger: {
             trigger: containerRef.current,
@@ -232,7 +253,7 @@ function TextRevealComponent(
           },
         });
       } else {
-        gsap.fromTo(spans, variantConfig.initial, animationProps);
+        gsap.fromTo(elements, variantConfig.initial, animationProps);
       }
     },
     {
@@ -266,6 +287,5 @@ function TextRevealComponent(
 }
 
 const TextReveal = React.forwardRef<HTMLDivElement, TextRevealProps>(TextRevealComponent);
-TextReveal.displayName = "TextReveal";
 
 export { TextReveal, textRevealVariants };
