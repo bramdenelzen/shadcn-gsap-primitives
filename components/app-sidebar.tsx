@@ -58,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <ModeToggle />
           <Button variant="outline" size="icon" asChild>
             <Link
-              href="https://github.com/bramdenelzen/shadcn-typography"
+              href="https://github.com/bramdenelzen/shadcn-gsap-primitives"
               target="_blank"
               rel="noreferrer"
             >
