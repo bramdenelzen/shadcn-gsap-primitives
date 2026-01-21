@@ -60,10 +60,12 @@ export const FadeInCustomDurationAndDelayExample: Example = {
   ),
 };
 
-export default [
+const examples = [
     FadeInBasicUsageExample,
     FadeInSlideUpExample,
     FadeInCustomElementExample,
     FadeInWithAsChildExample,
     FadeInCustomDurationAndDelayExample
-]
+];
+
+export default examples;

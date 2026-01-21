@@ -1,18 +1,12 @@
 import { Typography } from "@/components/ui/typography";
-import { CodeBlock } from "@/components/code-block";
 import { ExamplePreview } from "@/components/example-preview";
-import * as React from "react";
-import reactElementToJSXString from "react-element-to-jsx-string";
-import { FadeIn } from "@/registry/new-york/gsap-primitives/text-animations/fade-in";
-import { TextReveal } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
-import { componentRegistry } from "@/component-registration";
 import { Example } from "@/component-registration/types";
 
 interface UsageExamplesSectionProps {
   examples: Example[]
 }
 
-export function UsageExamplesSection({
+export default function UsageExamplesSection({
   examples,
 }: UsageExamplesSectionProps) {
   return (

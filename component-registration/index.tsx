@@ -1,5 +1,3 @@
-import * as React from "react";
-import reactElementToJSXString from "react-element-to-jsx-string";
 import { ComponentConfig } from "./types";
 import { FadeInDemo, TextRevealDemo } from "@/components/interactive-demos";
 import textRevealExamples from "./examples/text-reveal-examples";

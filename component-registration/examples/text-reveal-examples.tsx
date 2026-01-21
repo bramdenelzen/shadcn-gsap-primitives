@@ -67,7 +67,7 @@ export const TextRevealDifferentVariantsExample: Example = {
   ),
 };
 
-export default [
+const examples = [
   TextRevealBasicUsageExample,
   TextRevealSlideUpAnimationExample,
   TextRevealWordByWordExample,
@@ -75,3 +75,5 @@ export default [
   TextRevealWithDelayExample,
   TextRevealDifferentVariantsExample,
 ];
+
+export default examples;

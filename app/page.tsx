@@ -29,7 +29,7 @@ export default function ComponentsPage() {
         <Separator />
       </FadeIn>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(componentRegistry).map(([slug, component], index) => (
+        {Object.entries(componentRegistry).map(([slug, component]) => (
           <FadeIn
             key={slug}
             once={false}

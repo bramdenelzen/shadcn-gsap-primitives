@@ -217,7 +217,7 @@ function TextRevealComponent(
     // Append characters to container
     containerRef.current?.replaceChildren(fragment);
     setIsProcessed(true);
-  }, [children, splitBy, variant, prefersReducedMotion]);
+  }, [children, splitBy, variant, prefersReducedMotion, isProcessed, variantConfig]);
 
   useGSAP(
     () => {

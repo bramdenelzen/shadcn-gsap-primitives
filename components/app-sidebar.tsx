@@ -28,20 +28,6 @@ type NavItem = {
 const data: { navMain: NavItem[] } = {
   navMain: [
     {
-      title: "Getting Started",
-      url: "#",
-      items: [
-        {
-          title: "Installation",
-          url: "#",
-        },
-        {
-          title: "Usage",
-          url: "#",
-        },
-      ],
-    },
-    {
       title: "Text Animations",
       url: "#",
       items: [

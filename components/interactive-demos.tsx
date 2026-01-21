@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { TextReveal } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
-import { FadeIn } from "@/registry/new-york/gsap-primitives/text-animations/fade-in";
+import { TextReveal, type TextRevealProps } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
+import { FadeIn, type FadeInProps } from "@/registry/new-york/gsap-primitives/text-animations/fade-in";
 import { ComponentPreview } from "@/components/component-preview";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -17,10 +17,10 @@ import {
 // Text Reveal Interactive Demo
 export function TextRevealDemo() {
   const [text, setText] = React.useState("Hello World");
-  const [variant, setVariant] = React.useState<any>("slideUp");
-  const [duration, setDuration] = React.useState<any>("normal");
-  const [stagger, setStagger] = React.useState<any>("medium");
-  const [splitBy, setSplitBy] = React.useState<any>("char");
+  const [variant, setVariant] = React.useState<TextRevealProps["variant"]>("slideUp");
+  const [duration, setDuration] = React.useState<TextRevealProps["duration"]>("normal");
+  const [stagger, setStagger] = React.useState<TextRevealProps["stagger"]>("medium");
+  const [splitBy, setSplitBy] = React.useState<TextRevealProps["splitBy"]>("char");
   const [delay, setDelay] = React.useState(0);
   const [customDuration, setCustomDuration] = React.useState<number | undefined>(undefined);
   const [key, setKey] = React.useState(0);
@@ -65,8 +65,8 @@ export function TextRevealDemo() {
           <div className="space-y-2">
             <Label htmlFor="variant">Variant</Label>
             <Select
-              value={variant}
-              onValueChange={(value) => setVariant(value)}
+              value={variant || undefined}
+              onValueChange={(value) => setVariant(value as TextRevealProps["variant"])}
             >
               <SelectTrigger id="variant" className="w-full">
                 <SelectValue placeholder="Select variant" />
@@ -86,8 +86,8 @@ export function TextRevealDemo() {
           <div className="space-y-2">
             <Label htmlFor="duration">Duration</Label>
             <Select
-              value={duration}
-              onValueChange={(value) => setDuration(value)}
+              value={duration || undefined}
+              onValueChange={(value) => setDuration(value as TextRevealProps["duration"])}
             >
               <SelectTrigger id="duration" className="w-full">
                 <SelectValue placeholder="Select duration" />
@@ -103,8 +103,8 @@ export function TextRevealDemo() {
           <div className="space-y-2">
             <Label htmlFor="stagger">Stagger</Label>
             <Select
-              value={stagger}
-              onValueChange={(value) => setStagger(value)}
+              value={stagger || undefined}
+              onValueChange={(value) => setStagger(value as TextRevealProps["stagger"])}
             >
               <SelectTrigger id="stagger" className="w-full">
                 <SelectValue placeholder="Select stagger" />
@@ -121,8 +121,8 @@ export function TextRevealDemo() {
           <div className="space-y-2">
             <Label htmlFor="splitBy">Split By</Label>
             <Select
-              value={splitBy}
-              onValueChange={(value) => setSplitBy(value)}
+              value={splitBy || undefined}
+              onValueChange={(value) => setSplitBy(value as TextRevealProps["splitBy"])}
             >
               <SelectTrigger id="splitBy" className="w-full">
                 <SelectValue placeholder="Select split" />
@@ -172,8 +172,8 @@ export function TextRevealDemo() {
 
 // Fade In Interactive Demo
 export function FadeInDemo() {
-  const [variant, setVariant] = React.useState<any>("fade");
-  const [duration, setDuration] = React.useState<any>("normal");
+  const [variant, setVariant] = React.useState<FadeInProps["variant"]>("fade");
+  const [duration, setDuration] = React.useState<FadeInProps["duration"]>("normal");
   const [delay, setDelay] = React.useState(0);
   const [customDuration, setCustomDuration] = React.useState<number | undefined>(undefined);
   const [key, setKey] = React.useState(0);
@@ -209,8 +209,8 @@ export function FadeInDemo() {
           <div className="space-y-2">
             <Label htmlFor="fade-variant">Variant</Label>
             <Select
-              value={variant}
-              onValueChange={(value) => setVariant(value)}
+              value={variant || undefined}
+              onValueChange={(value) => setVariant(value as FadeInProps["variant"])}
             >
               <SelectTrigger id="fade-variant" className="w-full">
                 <SelectValue placeholder="Select variant" />
@@ -230,8 +230,8 @@ export function FadeInDemo() {
           <div className="space-y-2">
             <Label htmlFor="fade-duration">Duration</Label>
             <Select
-              value={duration}
-              onValueChange={(value) => setDuration(value)}
+              value={duration || undefined}
+              onValueChange={(value) => setDuration(value as FadeInProps["duration"])}
             >
               <SelectTrigger id="fade-duration" className="w-full">
                 <SelectValue placeholder="Select duration" />
