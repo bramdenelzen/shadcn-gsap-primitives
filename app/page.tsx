@@ -34,8 +34,8 @@ export default function ComponentsPage() {
             key={slug}
             once={false}
             variant={"slideUp"}
-            customDuration={15}
-            delay={1.5}
+            customDuration={1}
+            delay={2}
           >
             <Link href={`/${slug}`} className="block group h-full">
               <div className="border border-border bg-muted text-card-foreground rounded-xs p-6 h-full hover:shadow-sm hover:-translate-y-2 transition-all duration-200 flex flex-col">

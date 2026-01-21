@@ -39,10 +39,10 @@ export function AppHeader() {
       />
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbItem className="block">
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
-          {segments.length > 0 && <BreadcrumbSeparator className="hidden md:block" />}
+          {segments.length > 0 && <BreadcrumbSeparator className="block" />}
           
           {segments.map((segment, index) => {
             const href = `/${segments.slice(0, index + 1).join("/")}`;
@@ -51,14 +51,14 @@ export function AppHeader() {
 
             return (
               <React.Fragment key={href}>
-                <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbItem className="block">
                   {isLast ? (
                     <BreadcrumbPage>{label}</BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-                {!isLast && <BreadcrumbSeparator className="hidden md:block" />}
+                {!isLast && <BreadcrumbSeparator className="block" />}
               </React.Fragment>
             );
           })}
