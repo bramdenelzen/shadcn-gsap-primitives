@@ -45,6 +45,10 @@ const data: { navMain: NavItem[] } = {
           title: "Fade In",
           url: "/fade-in",
         },
+        {
+          title: "Mouse Follow",
+          url: "/mouse-follow",
+        }
       ],
     },
   ],
