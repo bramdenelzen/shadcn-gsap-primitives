@@ -3,7 +3,7 @@ import { componentRegistry } from "@/component-registration";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { TextReveal } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
-import { FadeIn } from "@/registry/new-york/gsap-primitives/text-animations/fade-in";
+import { FadeIn } from "@/registry/new-york/gsap-primitives/standard/fade-in";
 
 export default function ComponentsPage() {
   return (

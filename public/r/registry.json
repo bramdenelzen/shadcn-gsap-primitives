@@ -14,8 +14,8 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/gsap-primitives/text-animations/fade-in.tsx",
-          "type": "registry:ui"
+          "path": "registry/new-york/gsap-primitives/standard/fade-in.tsx",
+          "type": "registry:component"
         }
       ]
     },
@@ -31,7 +31,7 @@
       "files": [
         {
           "path": "registry/new-york/gsap-primitives/text-animations/text-reveal.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         }
       ]
     }

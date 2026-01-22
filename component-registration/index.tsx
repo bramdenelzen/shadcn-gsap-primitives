@@ -86,7 +86,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     description:
       "An animated component that fades in entire elements (divs, sections, images, etc.) with smooth GSAP animations.",
     component: "FadeIn",
-    filePath: "registry/new-york/gsap-primitives/text-animations/fade-in.tsx",
+    filePath: "registry/new-york/gsap-primitives/standard/fade-in.tsx",
     interActiveDemo: FadeInDemo,
     displayName: "FadeIn",
     props: [
