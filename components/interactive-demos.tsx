@@ -3,7 +3,7 @@
 import * as React from "react";
 import { TextReveal, type TextRevealProps } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
 import { FadeIn, type FadeInProps } from "@/registry/new-york/gsap-primitives/standard/fade-in";
-import { MouseFollow, type MouseFollowProps } from "@/registry/new-york/gsap-primitives/standard/mouse-follow";
+import { MouseFollow } from "@/registry/new-york/gsap-primitives/standard/mouse-follow";
 import { ComponentPreview } from "@/components/component-preview";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";

@@ -59,6 +59,8 @@ function MouseFollowComponent(
 
   // Update mouse position and check hover state
   React.useEffect(() => {
+    const currentCursorRef = cursorRef.current;
+    
     const handleMouseMove = (e: MouseEvent) => {
       mousePositionRef.current = {
         x: e.clientX + offset.x,
@@ -66,7 +68,7 @@ function MouseFollowComponent(
       };
 
       // Check if hovering over interactive element
-      if (enableHoverScale && cursorRef.current) {
+      if (enableHoverScale && currentCursorRef) {
         const target = e.target as HTMLElement;
         const isInteractive = target.closest(
           'a, button, input, textarea, select, [role="button"], [onclick]',
@@ -74,14 +76,14 @@ function MouseFollowComponent(
 
         if (isInteractive && !isHoveringRef.current) {
           isHoveringRef.current = true;
-          gsap.to(cursorRef.current, {
+          gsap.to(currentCursorRef, {
             scale: hoverScale,
             duration: 0.3,
             ease: "power2.out",
           });
         } else if (!isInteractive && isHoveringRef.current) {
           isHoveringRef.current = false;
-          gsap.to(cursorRef.current, {
+          gsap.to(currentCursorRef, {
             scale: 1,
             duration: 0.3,
             ease: "power2.out",
@@ -94,8 +96,8 @@ function MouseFollowComponent(
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       // Reset scale on cleanup
-      if (cursorRef.current) {
-        gsap.to(cursorRef.current, {
+      if (currentCursorRef) {
+        gsap.to(currentCursorRef, {
           scale: 1,
           duration: 0.3,
           ease: "power2.out",

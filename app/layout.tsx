@@ -9,7 +9,6 @@ import {
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { AppFooter } from "@/components/app-footer";
-import { MouseFollow } from "@/registry/new-york/gsap-primitives/standard/mouse-follow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +41,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <MouseFollow hoverScale={1.8} hideDefaultCursor ease={0.1}>
-            <div className="h-3 w-3 rounded-xs border-border shadow-2xl border bg-foreground " />
-          </MouseFollow> */}
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
