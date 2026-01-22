@@ -89,6 +89,7 @@ export interface TextRevealProps
   splitBy?: "char" | "word" | "line";
   triggerOnView?: boolean;
   once?: boolean;
+  skipDelayOnOutOfView?: boolean;
 }
 
 function TextRevealComponent(
@@ -104,6 +105,7 @@ function TextRevealComponent(
     splitBy = "char",
     triggerOnView = true,
     once = true,
+    skipDelayOnOutOfView = false,
     ...props
   }: TextRevealProps,
   ref: React.Ref<HTMLDivElement>,
@@ -226,7 +228,13 @@ function TextRevealComponent(
       const elements = containerRef.current.querySelectorAll(
         ".text-reveal-element",
       );
-      if (elements.length === 0) return;
+      let finalDelay = delay;
+      if (skipDelayOnOutOfView && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (rect.top > window.innerHeight) {
+          finalDelay = 0;
+        }
+      }
 
       // Animation properties
       const animationProps: gsap.TweenVars = {
@@ -238,7 +246,7 @@ function TextRevealComponent(
         duration: animationDuration,
         ease: "power2.out",
         stagger: staggerDelay,
-        delay: delay,
+        delay: finalDelay,
       };
 
       if (triggerOnView) {
@@ -259,6 +267,7 @@ function TextRevealComponent(
     {
       scope: containerRef,
       dependencies: [
+        skipDelayOnOutOfView,
         isProcessed,
         prefersReducedMotion,
         variant,

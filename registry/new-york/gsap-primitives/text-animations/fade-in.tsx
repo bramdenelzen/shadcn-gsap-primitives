@@ -76,6 +76,7 @@ export interface FadeInProps
   customDuration?: number;
   triggerOnView?: boolean;
   once?: boolean;
+  skipDelayOnOutOfView?: boolean;
 }
 
 function FadeInComponent(
@@ -90,6 +91,7 @@ function FadeInComponent(
     customDuration,
     triggerOnView = true,
     once = true,
+    skipDelayOnOutOfView = false,
     ...props
   }: FadeInProps,
   ref: React.Ref<HTMLElement>,
@@ -128,6 +130,14 @@ function FadeInComponent(
     () => {
       if (!containerRef.current || !isReady || prefersReducedMotion) return;
 
+      let finalDelay = delay;
+      if (skipDelayOnOutOfView && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (rect.top > window.innerHeight) {
+          finalDelay = 0;
+        }
+      }
+
       // Animation properties
       const animationProps: gsap.TweenVars = {
         opacity: 1,
@@ -137,7 +147,7 @@ function FadeInComponent(
         filter: "blur(0px)",
         duration: animationDuration,
         ease: "power2.out",
-        delay: delay,
+        delay: finalDelay,
       };
 
       if (triggerOnView) {
@@ -169,6 +179,7 @@ function FadeInComponent(
         delay,
         triggerOnView,
         once,
+        skipDelayOnOutOfView,
       ],
     },
   );

@@ -35,6 +35,7 @@ export default function ComponentsPage() {
             once={false}
             variant={"slideUp"}
             customDuration={1}
+            skipDelayOnOutOfView
             delay={2}
           >
             <Link href={`/${slug}`} className="block group h-full">

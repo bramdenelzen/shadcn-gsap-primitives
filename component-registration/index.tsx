@@ -3,7 +3,6 @@ import { FadeInDemo, TextRevealDemo } from "@/components/interactive-demos";
 import textRevealExamples from "./examples/text-reveal-examples";
 import fadeInExamples from "./examples/fade-in-examples";
 
-
 export const componentRegistry: Record<string, ComponentConfig> = {
   "text-reveal": {
     name: "Text Reveal",
@@ -20,7 +19,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         name: "variant",
         type: '"fade" | "slideUp" | "slideDown" | "slideLeft" | "slideRight" | "scale" | "blur"',
         default: '"slideUp"',
-        description: "The animation variant to use",
+        description: "The animation variant to use, add your own variants as needed",
       },
       {
         name: "duration",
@@ -52,6 +51,13 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         default: "0",
         description: "Delay before animation starts (in seconds)",
       },
+       {
+        name: "skipDelayOnOutOfView",
+        type: "boolean",
+        default: "false",
+        description:
+          "Whether to skip the delay if the element is initially out of view",
+      },
       {
         name: "triggerOnView",
         type: "boolean",
@@ -64,6 +70,13 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         type: "boolean",
         default: "true",
         description: "Whether animation should only play once",
+      },
+      {
+        name: "skipDelayOnOutOfView",
+        type: "boolean",
+        default: "false",
+        description:
+          "Whether to skip the delay if the element is initially out of view",
       },
       {
         name: "as",
@@ -86,7 +99,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         name: "variant",
         type: '"fade" | "slideUp" | "slideDown" | "slideLeft" | "slideRight" | "scale" | "blur"',
         default: '"fade"',
-        description: "The animation variant to use",
+        description: "The animation variant to use, add your own variants as needed",
       },
       {
         name: "duration",
@@ -114,6 +127,13 @@ export const componentRegistry: Record<string, ComponentConfig> = {
           "Whether to trigger animation when element enters viewport",
       },
       {
+        name: "skipDelayOnOutOfView",
+        type: "boolean",
+        default: "false",
+        description:
+          "Whether to skip the delay if the element is initially out of view",
+      },
+      {
         name: "once",
         type: "boolean",
         default: "true",
@@ -129,7 +149,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         name: "asChild",
         type: "boolean",
         default: "false",
-        description: "Merge props with child element (Radix UI pattern)",
+        description: "Merge props with child element",
       },
     ],
   },
