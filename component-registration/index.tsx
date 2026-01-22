@@ -1,5 +1,5 @@
 import { ComponentConfig } from "./types";
-import { FadeInDemo, TextRevealDemo } from "@/components/interactive-demos";
+import { FadeInDemo, TextRevealDemo, MouseFollowDemo } from "@/components/interactive-demos";
 
 export const componentRegistry: Record<string, ComponentConfig> = {
   "text-reveal": {
@@ -145,6 +145,52 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         type: "boolean",
         default: "false",
         description: "Merge props with child element",
+      },
+    ],
+  },
+  "mouse-follow": {
+    name: "Mouse Follow",
+    description:
+      "A smooth mouse follower component that creates a custom cursor using GSAP. The cursor smoothly follows mouse movement and can scale on hover over interactive elements.",
+    component: "MouseFollow",
+    filePath: "registry/new-york/gsap-primitives/standard/mouse-follow.tsx",
+    interActiveDemo: MouseFollowDemo,
+    displayName: "MouseFollow",
+    props: [
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "Custom cursor element to render (replaces default cursor)",
+      },
+      {
+        name: "ease",
+        type: "number",
+        default: "0.15",
+        description: "How quickly the cursor follows the mouse (0-1, higher is faster)",
+      },
+      {
+        name: "hideDefaultCursor",
+        type: "boolean",
+        default: "true",
+        description: "Whether to hide the default system cursor",
+      },
+      {
+        name: "hoverScale",
+        type: "number",
+        default: "1.5",
+        description: "Scale factor when hovering over interactive elements",
+      },
+      {
+        name: "enableHoverScale",
+        type: "boolean",
+        default: "true",
+        description: "Whether to enable hover scaling on interactive elements",
+      },
+      {
+        name: "offset",
+        type: "{ x: number; y: number }",
+        default: "{ x: 0, y: 0 }",
+        description: "Offset from the actual cursor position (in pixels)",
       },
     ],
   },

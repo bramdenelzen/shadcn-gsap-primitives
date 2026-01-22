@@ -3,6 +3,7 @@
 import * as React from "react";
 import { TextReveal, type TextRevealProps } from "@/registry/new-york/gsap-primitives/text-animations/text-reveal";
 import { FadeIn, type FadeInProps } from "@/registry/new-york/gsap-primitives/standard/fade-in";
+import { MouseFollow, type MouseFollowProps } from "@/registry/new-york/gsap-primitives/standard/mouse-follow";
 import { ComponentPreview } from "@/components/component-preview";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -284,6 +285,113 @@ export function FadeInDemo() {
               }}
               className="w-full"
             />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+// Mouse Follow Interactive Demo
+export function MouseFollowDemo() {
+  const [ease, setEase] = React.useState(0.15);
+  const [hideDefaultCursor, setHideDefaultCursor] = React.useState(false);
+  const [hoverScale, setHoverScale] = React.useState(1.5);
+  const [enableHoverScale, setEnableHoverScale] = React.useState(true);
+  const [cursorSize, setCursorSize] = React.useState(24);
+
+  return (
+    <div className="space-y-6">
+      <ComponentPreview className="min-h-[400px]">
+        {hideDefaultCursor && (
+          <MouseFollow
+            ease={ease}
+            hideDefaultCursor={hideDefaultCursor}
+            hoverScale={hoverScale}
+            enableHoverScale={enableHoverScale}
+          >
+            <div 
+              className="rounded-full bg-foreground/50 backdrop-blur-sm border-2 border-foreground/30"
+              style={{ width: cursorSize, height: cursorSize }}
+            />
+          </MouseFollow>
+        )}
+        <div className="space-y-4 text-center">
+          <h3 className="text-2xl font-semibold">Move your mouse around</h3>
+          <p className="text-muted-foreground">
+            {hideDefaultCursor 
+              ? "Custom cursor is active. Try hovering over the button below!"
+              : "Enable custom cursor in the settings below"}
+          </p>
+          <button className="px-6 py-2 bg-primary text-primary-foreground rounded-xs hover:bg-primary/90 transition-colors">
+            Hover over me
+          </button>
+        </div>
+      </ComponentPreview>
+
+      <div className="rounded-xs border bg-background p-6 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="mouse-ease">Ease (Follow Speed)</Label>
+            <Input
+              id="mouse-ease"
+              type="number"
+              step="0.01"
+              min="0.01"
+              max="1"
+              value={ease}
+              onChange={(e) => setEase(parseFloat(e.target.value) || 0.15)}
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="mouse-hover-scale">Hover Scale</Label>
+            <Input
+              id="mouse-hover-scale"
+              type="number"
+              step="0.1"
+              min="1"
+              max="3"
+              value={hoverScale}
+              onChange={(e) => setHoverScale(parseFloat(e.target.value) || 1.5)}
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="mouse-cursor-size">Cursor Size (px)</Label>
+            <Input
+              id="mouse-cursor-size"
+              type="number"
+              step="1"
+              min="8"
+              max="64"
+              value={cursorSize}
+              onChange={(e) => setCursorSize(parseInt(e.target.value) || 24)}
+              className="w-full"
+            />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="mouse-hide-default"
+              checked={hideDefaultCursor}
+              onCheckedChange={(checked) => setHideDefaultCursor(checked as boolean)}
+            />
+            <Label htmlFor="mouse-hide-default" className="cursor-pointer">
+              Hide Default Cursor
+            </Label>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="mouse-enable-hover"
+              checked={enableHoverScale}
+              onCheckedChange={(checked) => setEnableHoverScale(checked as boolean)}
+            />
+            <Label htmlFor="mouse-enable-hover" className="cursor-pointer">
+              Enable Hover Scale
+            </Label>
           </div>
         </div>
       </div>

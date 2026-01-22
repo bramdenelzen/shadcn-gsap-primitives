@@ -34,6 +34,20 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "mouse-follow",
+      "type": "registry:ui",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/gsap-primitives/standard/mouse-follow.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
