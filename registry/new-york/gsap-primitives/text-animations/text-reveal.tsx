@@ -47,10 +47,10 @@ const GSAPOriginalStatesMap = {
       initial: { opacity: 0 },
     },
     slideUp: {
-      initial: { opacity: 0, y: "25%" },
+      initial: { opacity: 0, y: "100%" },
     },
     slideDown: {
-      initial: { opacity: 0, y: "-25%" },
+      initial: { opacity: 0, y: "-100%" },
     },
     slideLeft: {
       initial: { opacity: 0, x: "25%" },
@@ -90,6 +90,7 @@ export interface TextRevealProps
   triggerOnView?: boolean;
   once?: boolean;
   skipDelayOnOutOfView?: boolean;
+  withOverflowHidden?: boolean;
 }
 
 function TextRevealComponent(
@@ -106,6 +107,7 @@ function TextRevealComponent(
     triggerOnView = true,
     once = true,
     skipDelayOnOutOfView = false,
+    withOverflowHidden = false,
     ...props
   }: TextRevealProps,
   ref: React.Ref<HTMLDivElement>,
@@ -176,10 +178,17 @@ function TextRevealComponent(
             "text-reveal-element",
           );
           charSpan.textContent = char;
-          charSpan.style.display = "inline-block";
 
           gsap.set(charSpan, variantConfig.initial);
-          wordSpan.appendChild(charSpan);
+
+          if (withOverflowHidden) {
+            const wrapper = document.createElement("span");
+            wrapper.className = "inline-block overflow-hidden align-bottom";
+            wrapper.appendChild(charSpan);
+            wordSpan.appendChild(wrapper);
+          } else {
+            wordSpan.appendChild(charSpan);
+          }
         });
 
         fragment.appendChild(wordSpan);
@@ -205,10 +214,17 @@ function TextRevealComponent(
           "text-reveal-element",
         );
         span.textContent = element;
-        span.style.display = "inline-block";
 
         gsap.set(span, variantConfig.initial);
-        fragment.appendChild(span);
+
+        if (withOverflowHidden) {
+          const wrapper = document.createElement("span");
+          wrapper.className = "inline-block overflow-hidden align-bottom";
+          wrapper.appendChild(span);
+          fragment.appendChild(wrapper);
+        } else {
+          fragment.appendChild(span);
+        }
 
         if (splitBy === "word" && index < elements.length - 1) {
           fragment.appendChild(document.createTextNode(" "));
@@ -219,7 +235,15 @@ function TextRevealComponent(
     // Append characters to container
     containerRef.current?.replaceChildren(fragment);
     setIsProcessed(true);
-  }, [children, splitBy, variant, prefersReducedMotion, isProcessed, variantConfig]);
+  }, [
+    children,
+    splitBy,
+    variant,
+    prefersReducedMotion,
+    isProcessed,
+    variantConfig,
+    withOverflowHidden,
+  ]);
 
   useGSAP(
     () => {

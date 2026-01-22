@@ -6,6 +6,7 @@ import { FadeIn, type FadeInProps } from "@/registry/new-york/gsap-primitives/te
 import { ComponentPreview } from "@/components/component-preview";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -23,13 +24,14 @@ export function TextRevealDemo() {
   const [splitBy, setSplitBy] = React.useState<TextRevealProps["splitBy"]>("char");
   const [delay, setDelay] = React.useState(0);
   const [customDuration, setCustomDuration] = React.useState<number | undefined>(undefined);
+  const [withOverflowHidden, setWithOverflowHidden] = React.useState(false);
   const [key, setKey] = React.useState(0);
 
   const resetAnimation = () => setKey((prev) => prev + 1);
 
   React.useEffect(() => {
     resetAnimation();
-  }, [text, variant, duration, stagger, splitBy, delay, customDuration]);
+  }, [text, variant, duration, stagger, splitBy, delay, customDuration, withOverflowHidden]);
 
   return (
     <div className="space-y-6">
@@ -41,6 +43,7 @@ export function TextRevealDemo() {
           stagger={stagger}
           splitBy={splitBy}
           delay={delay}
+          withOverflowHidden={withOverflowHidden}
           customDuration={customDuration}
           triggerOnView={false}
           className="text-2xl font-semibold"
@@ -163,6 +166,15 @@ export function TextRevealDemo() {
               }}
               className="w-full"
             />
+          </div>
+
+          <div className="flex items-center space-x-2 pt-8">
+            <Checkbox
+              id="overflow-hidden"
+              checked={withOverflowHidden}
+              onCheckedChange={(checked) => setWithOverflowHidden(checked === true)}
+            />
+            <Label htmlFor="overflow-hidden">With Overflow Hidden</Label>
           </div>
         </div>
       </div>

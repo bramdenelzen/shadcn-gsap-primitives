@@ -1,7 +1,5 @@
 import { ComponentConfig } from "./types";
 import { FadeInDemo, TextRevealDemo } from "@/components/interactive-demos";
-import textRevealExamples from "./examples/text-reveal-examples";
-import fadeInExamples from "./examples/fade-in-examples";
 
 export const componentRegistry: Record<string, ComponentConfig> = {
   "text-reveal": {
@@ -12,7 +10,6 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     filePath:
       "registry/new-york/gsap-primitives/text-animations/text-reveal.tsx",
     interActiveDemo: TextRevealDemo,
-    examples: textRevealExamples,
     displayName: "TextReveal",
     props: [
       {
@@ -79,6 +76,12 @@ export const componentRegistry: Record<string, ComponentConfig> = {
           "Whether to skip the delay if the element is initially out of view",
       },
       {
+        name: "withOverflowHidden",
+        type: "boolean",
+        default: "false",
+        description: "Whether to hide overflow on the character/word wrapper",
+      },
+      {
         name: "as",
         type: "React.ElementType",
         description: "The element to render as",
@@ -92,7 +95,6 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     component: "FadeIn",
     filePath: "registry/new-york/gsap-primitives/text-animations/fade-in.tsx",
     interActiveDemo: FadeInDemo,
-    examples: fadeInExamples,
     displayName: "FadeIn",
     props: [
       {
