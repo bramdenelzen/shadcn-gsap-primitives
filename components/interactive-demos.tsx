@@ -35,7 +35,7 @@ export function TextRevealDemo() {
 
   return (
     <div className="space-y-6">
-      <ComponentPreview>
+      <ComponentPreview onReplay={resetAnimation}>
         <TextReveal
           key={key}
           variant={variant}
@@ -198,7 +198,7 @@ export function FadeInDemo() {
 
   return (
     <div className="space-y-6">
-      <ComponentPreview>
+      <ComponentPreview onReplay={resetAnimation}>
         <FadeIn
           key={key}
           variant={variant}
