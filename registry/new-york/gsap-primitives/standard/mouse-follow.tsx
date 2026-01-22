@@ -33,6 +33,11 @@ export interface MouseFollowProps
    * @default { x: 0, y: 0 }
    */
   offset?: { x: number; y: number };
+  /**
+   * Whether to disable on mobile and tablet devices
+   * @default true
+   */
+  disableOnMobile?: boolean;
 }
 
 function MouseFollowComponent(
@@ -44,6 +49,7 @@ function MouseFollowComponent(
     hoverScale = 1.5,
     enableHoverScale = true,
     offset = { x: 0, y: 0 },
+    disableOnMobile = true,
     ...props
   }: MouseFollowProps,
   ref: React.Ref<HTMLDivElement>,
@@ -51,8 +57,26 @@ function MouseFollowComponent(
   const cursorRef = React.useRef<HTMLDivElement>(null);
   const positionRef = React.useRef({ x: 0, y: 0 });
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useImperativeHandle(ref, () => cursorRef.current!);
+
+  // Detect mobile/tablet devices
+  React.useEffect(() => {
+    if (disableOnMobile) {
+      const checkMobile = () => {
+        const isTouchDevice = 
+          'ontouchstart' in window || 
+          navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches;
+        setIsMobile(isTouchDevice || isSmallScreen);
+      };
+
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, [disableOnMobile]);
 
   // Track if hovering over interactive element
   const isHoveringRef = React.useRef(false);
@@ -162,6 +186,11 @@ function MouseFollowComponent(
       };
     }
   }, [hideDefaultCursor]);
+
+  // Don't render on mobile/tablet if disabled
+  if (disableOnMobile && isMobile) {
+    return null;
+  }
 
   return (
     <div

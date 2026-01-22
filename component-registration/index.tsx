@@ -192,6 +192,12 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         default: "{ x: 0, y: 0 }",
         description: "Offset from the actual cursor position (in pixels)",
       },
+      {
+        name: "disableOnMobile",
+        type: "boolean",
+        default: "true",
+        description: "Whether to disable on mobile and tablet devices",
+      },
     ],
   },
 };
