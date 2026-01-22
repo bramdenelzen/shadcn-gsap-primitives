@@ -168,7 +168,7 @@ export function TextRevealDemo() {
             />
           </div>
 
-          <div className="flex items-center space-x-2 pt-8">
+          <div className="flex items-center gap-2 h-fit my-auto pt-5 ">
             <Checkbox
               id="overflow-hidden"
               checked={withOverflowHidden}

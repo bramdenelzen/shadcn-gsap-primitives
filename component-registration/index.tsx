@@ -48,7 +48,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         default: "0",
         description: "Delay before animation starts (in seconds)",
       },
-       {
+      {
         name: "skipDelayOnOutOfView",
         type: "boolean",
         default: "false",
@@ -67,13 +67,6 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         type: "boolean",
         default: "true",
         description: "Whether animation should only play once",
-      },
-      {
-        name: "skipDelayOnOutOfView",
-        type: "boolean",
-        default: "false",
-        description:
-          "Whether to skip the delay if the element is initially out of view",
       },
       {
         name: "withOverflowHidden",
